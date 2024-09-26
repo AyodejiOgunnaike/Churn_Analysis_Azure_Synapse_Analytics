@@ -21,16 +21,23 @@ Link to dataset : https://www.kaggle.com/datasets/shantanudhakadd/bank-customer-
    Create venv : python3 -m venv pr_venv
    Activate venv : source pr_venv/bin/activate
 
-2. Installed azure datalake storage file using the command below, this serves as the service collection client for for Datalake Gen2 resources
+  I created a directory within my project folder (command mkdir load_adls_gen2) and named it 'load_adls_gen2' then created a python file inside 
+  it (command touch main.py) that automates the loading of the customer_churn.csv dataset into my ADLS Gen2 container directory. The python 
+  script in the 'main.py' performs couple of tasks which are listed below.
+
+3. Installed azure datalake storage file using the command below, this serves as the service collection client for for Datalake Gen2 resources
    pip install azure-storage-file-datalake
 
 
-Provisioned the needed datalake resourses with the azure cli commands stated below after confirmation that the resource group 'Ayodeji-rg'had initially been provisioned. 
+ Provisioned the needed datalake resourses with the azure cli commands stated below after confirmation that the resource group 'Ayodeji-rg'had 
+ initially been provisioned. 
 
   - az login --tenant ID (login to my subcription)
   - az group show --name Ayodeji-rg (Confirms that the resource group was created)
-  - az storage account create --name churnstg2 --resource-group Ayodeji-rg --location uksouth --sku Standard_GRS --kind StorageV2 --hierarchical-namespace true (creates the storage account with hierarchical namespace)
-  - az storage account show --name churnstg2 --resource-group Ayodeji-rg (Confirms that storage account 'churnstg2' was created inside the Ayodeji_rg)
+  - az storage account create --name churnstg2 --resource-group Ayodeji-rg --location uksouth --sku Standard_GRS --kind StorageV2 -hierarchical- 
+    namespace true (creates the storage account with hierarchical namespace)
+  - az storage account show --name churnstg2 --resource-group Ayodeji-rg (Confirms that storage account 'churnstg2' was created inside the 
+    Ayodeji_rg)
   - az storage container create --account-name churnstg2 --name churncontstg (Creates container 'churncontstg' inside churnstg2)
   - az container show --name churncontstg --resource-group Ayodeji-rg (Confirms that 'churncontstg' was created within 'Ayodeji-rg')
 
@@ -150,10 +157,8 @@ Provisioned the needed datalake resourses with the azure cli commands stated bel
   
 
 
-I created a directory within my project folder (command mkdir load_adls_gen2) and named it 'load_adls_gen2' then created a python file inside it (command touch main.py) that automates the loading of the customer_churn.csv dataset   
-into my ADLS Gen2 container directory. The python script in the 'main.py' performs couple of tasks which are listed below.
 
-1. 
+
 
 
 
