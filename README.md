@@ -1,4 +1,4 @@
-# Customer Churn Analysis With Azure Synapse Analytics
+# CUSTOMER CHURN ANALYSIS WITH AZURE SYNAPSE ANALYTICS
 
 
   ![image](https://github.com/user-attachments/assets/2fa004ac-faf4-4336-8cf2-def82e367561)
@@ -18,19 +18,19 @@ Link to dataset : https://www.kaggle.com/datasets/shantanudhakadd/bank-customer-
 1. Made use of Wisdows subsystem for Linux as CLI. I created a virtual environment to manage dependencies for this project with the command 
    below and named it 'pr_venv'
 
-   Create venv : python3 -m venv pr_venv
-   Activate venv : source pr_venv/bin/activate
+   - Create venv : python3 -m venv pr_venv
+   - Activate venv : source pr_venv/bin/activate
 
-  I created a directory within my project folder (command mkdir load_adls_gen2) and named it 'load_adls_gen2' then created a python file inside 
-  it (command touch main.py) that automates the loading of the customer_churn.csv dataset into my ADLS Gen2 container directory. The python 
-  script in the 'main.py' performs couple of tasks which are listed below.
+   I created a directory within my project folder (command mkdir load_adls_gen2) and named it 'load_adls_gen2' then created a python file inside 
+   it (command touch main.py) that automates the loading of the customer_churn.csv dataset into my ADLS Gen2 container directory. The python 
+   script in the 'main.py' performs couple of tasks which are listed below.
 
 3. Installed azure datalake storage file using the command below, this serves as the service collection client for for Datalake Gen2 resources
    pip install azure-storage-file-datalake
 
 
- Provisioned the needed datalake resourses with the azure cli commands stated below after confirmation that the resource group 'Ayodeji-rg'had 
- initially been provisioned. 
+   Provisioned the needed datalake resourses with the azure cli commands stated below after confirmation that the resource group 'Ayodeji-rg'had 
+   initially been provisioned. 
 
   - az login --tenant ID (login to my subcription)
   - az group show --name Ayodeji-rg (Confirms that the resource group was created)
@@ -41,7 +41,7 @@ Link to dataset : https://www.kaggle.com/datasets/shantanudhakadd/bank-customer-
   - az storage container create --account-name churnstg2 --name churncontstg (Creates container 'churncontstg' inside churnstg2)
   - az container show --name churncontstg --resource-group Ayodeji-rg (Confirms that 'churncontstg' was created within 'Ayodeji-rg')
 
- The storage account resources are ready to be loaded with the customer_churn.csv dataset.
+   The storage account resources are ready to be loaded with the customer_churn.csv dataset.
 
 3. The python script inside main.py file is use to create 'raw_churn' directory within the container directory and eventually use to automate 
    the data loading process into 'raw_churn'. The 'raw_churn' directory holds the raw data within the datalake. Also, I created another 
