@@ -6,8 +6,7 @@
 
 
 
-This repository provides a comprehensive and detailed documentation of data preparation steps taken, assumptions made, including a detailed record of any data quality issues encountered and how they were 
-addressed, and solutions implemented all through the ETL process.
+This repository provides a comprehensive and detailed documentation of data preparation steps taken, assumptions made, including a detailed record of all data quality issues encountered and how they were addressed, and solutions implemented all through the ETL process.
 
 Link to dataset : https://www.kaggle.com/datasets/shantanudhakadd/bank-customer-churn-prediction
 
@@ -15,17 +14,18 @@ Link to dataset : https://www.kaggle.com/datasets/shantanudhakadd/bank-customer-
 
 ### Steps Taken:
 
-1. Made use of Wisdows subsystem for Linux as CLI. I created a virtual environment to manage dependencies for this project with the command 
-   below and named it 'pr_venv'
+1. Made use of Wisdows subsystem for Linux (WSL) as CLI. I created a virtual environment to manage dependencies for this project with the 
+   commands below and named it 'pr_venv'
 
-   - Create venv : python3 -m venv pr_venv
+   - Create venv : python -m venv pr_venv
    - Activate venv : source pr_venv/bin/activate
 
-   I created a directory within my project folder (command mkdir load_adls_gen2) and named it 'load_adls_gen2' then created a python file inside 
-   it (command touch main.py) that automates the loading of the customer_churn.csv dataset into my ADLS Gen2 container directory. The python 
-   script in the 'main.py' performs couple of tasks which are listed below.
+   I created a directory within my project folder (command: mkdir load_adls_gen2) and named it 'load_adls_gen2' then created a python file 
+   inside it (command: touch main.py) that automates the loading of the customer_churn.csv dataset into my ADLS Gen2 container directory. The 
+   python script in the 'main.py' performs couple of tasks which are listed below.
 
 3. Installed azure datalake storage file using the command below, this serves as the service collection client for for Datalake Gen2 resources
+
    pip install azure-storage-file-datalake
 
 
@@ -34,8 +34,8 @@ Link to dataset : https://www.kaggle.com/datasets/shantanudhakadd/bank-customer-
 
   - az login --tenant ID (login to my subcription)
   - az group show --name Ayodeji-rg (Confirms that the resource group was created)
-  - az storage account create --name churnstg2 --resource-group Ayodeji-rg --location uksouth --sku Standard_GRS --kind StorageV2 -hierarchical- 
-    namespace true (creates the storage account with hierarchical namespace)
+  - az storage account create --name churnstg2 --resource-group Ayodeji-rg --location uksouth --sku Standard_GRS --kind StorageV2
+    --hierarchical  --namespace true (creates the storage account with hierarchical namespace)
   - az storage account show --name churnstg2 --resource-group Ayodeji-rg (Confirms that storage account 'churnstg2' was created inside the 
     Ayodeji_rg)
   - az storage container create --account-name churnstg2 --name churncontstg (Creates container 'churncontstg' inside churnstg2)
@@ -43,24 +43,24 @@ Link to dataset : https://www.kaggle.com/datasets/shantanudhakadd/bank-customer-
 
    The storage account resources are ready to be loaded with the customer_churn.csv dataset.
 
-3. The python script inside main.py file is use to create 'raw_churn' directory within the container directory and eventually use to automate 
-   the data loading process into 'raw_churn'. The 'raw_churn' directory holds the raw data within the datalake. Also, I created another 
-   directory within inside the container and mained it 'parquet_churn', this directoy will be use to store the clean data after it has been 
-   tranformed and coverted to a parquet file in Synapse Analytics.
+3. The python script inside main.py file is use to create 'raw_churn' directory within the container and eventually use to automate 
+   the data loading process into 'raw_churn' directory. The 'raw_churn' directory holds the raw data within the datalake. Also, I created 
+   another directory within inside the container and mained it 'parquet_churn', this directoy will be use to store the clean data after it has 
+   been tranformed and coverted to a parquet file in Synapse Analytics.
    
-   Note: a SAS token was generated at the storage account level and incorporated into the main.py file so as to link the datalake storage 
-   account to the python script and this made loading the dataset into the container directory possible.
+   Note: A Share Access Signature Token (SAS token) was generated at the storage account level and incorporated into the main.py file so as to 
+   link the datalake storage account to the python script and this made loading the dataset into the container directory possible.
 
    In order to automate the loading process, I ran the cli command 'python ./main.py'. The python script loads the data into the raw_churn 
    directory and also confirms that some of the resources it was programmed to create already exist within the storage account ( this is because 
    I have created this resources initially using az cli commands).
 
-   Both the churn_raw and the parquet directries can in the image below within the storage container.
+   Both the churn_raw and the parquet directories can be seen in the image below within the storage container.
 
    ![image](https://github.com/user-attachments/assets/b28e106b-09a6-400a-9bcb-657a971308d0)
 
 
-4. I created a new Synapse Analytics workspace to carry out all necessary data cleaning tasks, leveraging the platform’s builtin SQL 
+4. I created a new Synapse Analytics Workspace to carry out all necessary data cleaning tasks, leveraging the platform’s builtin SQL 
    capabilities and Spark pools to address missing values, outliers, inconsistencies, and incorrect data types that may hinder the modeling 
    process.
 
